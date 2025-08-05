@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tensor Operations - TensorFlow.js Learning Platform</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../css/style.css" rel="stylesheet">
+    
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0/dist/tf.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-brain"></i> TensorFlow.js Learning Platform
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="tensor-operations.html">Tensor Operations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="neural-network.html">Neural Network</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="image-recognition.html">Image Recognition</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="data-viz.html">Data Visualization</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-list"></i> Operations</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush">
+                            <button class="list-group-item list-group-item-action" onclick="runTensorShape()">
+                                <i class="fas fa-cube"></i> Shape Operations
+                            </button>
+                            <button class="list-group-item list-group-item-action" onclick="runDataType()">
+                                <i class="fas fa-exchange-alt"></i> Data Type Conversion
+                            </button>
+                            <button class="list-group-item list-group-item-action" onclick="runMathematical()">
+                                <i class="fas fa-calculator"></i> Mathematical Operations
+                            </button>
+                            <button class="list-group-item list-group-item-action" onclick="runMemory()">
+                                <i class="fas fa-memory"></i> Memory Management
+                            </button>
+                            <button class="list-group-item list-group-item-action" onclick="runAdvanced()">
+                                <i class="fas fa-rocket"></i> Advanced Operations
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Monitor -->
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h6><i class="fas fa-tachometer-alt"></i> Performance</h6>
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted">Memory Usage:</small>
+                        <div id="memory-usage" class="progress mb-2" style="height: 20px;">
+                            <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                        <small class="text-muted">Execution Time:</small>
+                        <div id="execution-time" class="text-primary">0ms</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4><i class="fas fa-cube"></i> Tensor Operations</h4>
+                        <div>
+                            <button class="btn btn-outline-primary btn-sm" onclick="clearResults()">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                            <button class="btn btn-outline-success btn-sm" onclick="exportResults()">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- Input Section -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="tensor-input" class="form-label">Custom Tensor Input:</label>
+                                <textarea class="form-control" id="tensor-input" rows="3" 
+                                    placeholder="Enter tensor data (e.g., [1, 2, 3, 4] or [[1,2],[3,4]])"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="tensor-shape" class="form-label">Shape (optional):</label>
+                                <input type="text" class="form-control" id="tensor-shape" 
+                                    placeholder="e.g., 2,2 for 2x2 matrix">
+                            </div>
+                        </div>
+
+                        <!-- Results Section -->
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="results" class="form-label">Results:</label>
+                                <textarea class="form-control" id="results" rows="15" readonly></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Visualization Section -->
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6><i class="fas fa-chart-bar"></i> Tensor Visualization</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="tensor-chart" width="400" height="200"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center text-muted py-3 mt-5">
+        <div class="container">
+            <p>&copy; 2024 TensorFlow.js Learning Platform. Built with ❤️ for AI education.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="../js/core/tensor-utils.js"></script>
+    <script src="../js/demos/tensor-operations.js"></script>
+    <script src="../js/utils/performance-monitor.js"></script>
+    <script src="../js/utils/export-utils.js"></script>
+</body>
+</html> 

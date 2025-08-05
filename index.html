@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TensorFlow.js Learning Platform - Interactive AI Education</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0/dist/tf.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-brain"></i> TensorFlow.js Learning Platform
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/tensor-operations.html">Tensor Operations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/neural-network.html">Neural Network</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/image-recognition.html">Image Recognition</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/data-viz.html">Data Visualization</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section bg-gradient-primary text-white py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">
+                        Learn TensorFlow.js <br>
+                        <span class="text-warning">Interactively</span>
+                    </h1>
+                    <p class="lead mb-4">
+                        Master machine learning with JavaScript through hands-on experiments, 
+                        real-time visualizations, and comprehensive tutorials.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="pages/tensor-operations.html" class="btn btn-warning btn-lg">
+                            <i class="fas fa-play"></i> Start Learning
+                        </a>
+                        <a href="#features" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <div class="hero-image">
+                        <i class="fas fa-brain" style="font-size: 15rem; opacity: 0.3;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <h2 class="display-5 fw-bold mb-3">Why Choose Our Platform?</h2>
+                    <p class="lead text-muted">Comprehensive learning experience designed for all skill levels</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-cube fa-3x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">Tensor Operations</h5>
+                            <p class="card-text">Master fundamental tensor manipulations with real-time examples and visual feedback.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-network-wired fa-3x text-success"></i>
+                            </div>
+                            <h5 class="card-title">Neural Networks</h5>
+                            <p class="card-text">Build and train neural networks with visual network construction and training progress.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-eye fa-3x text-info"></i>
+                            </div>
+                            <h5 class="card-title">Image Recognition</h5>
+                            <p class="card-text">Experiment with pre-trained models for real-time image classification and analysis.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 text-center">
+                        <div class="card-body">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-chart-line fa-3x text-warning"></i>
+                            </div>
+                            <h5 class="card-title">Data Visualization</h5>
+                            <p class="card-text">Visualize training progress, model performance, and data patterns with interactive charts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Section -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-4">Quick Start Guide</h2>
+                    <p class="lead mb-5">Get started with TensorFlow.js in minutes</p>
+                    
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="step-card">
+                                <div class="step-number">1</div>
+                                <h5>Choose Your Path</h5>
+                                <p>Start with tensor operations or jump into neural networks</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="step-card">
+                                <div class="step-number">2</div>
+                                <h5>Run Experiments</h5>
+                                <p>Execute code examples and see results in real-time</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="step-card">
+                                <div class="step-number">3</div>
+                                <h5>Learn & Explore</h5>
+                                <p>Understand concepts through interactive visualizations</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <a href="pages/tensor-operations.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-rocket"></i> Launch First Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Cards Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-12">
+                    <h2 class="display-5 fw-bold mb-3">Interactive Demos</h2>
+                    <p class="lead text-muted">Explore different aspects of TensorFlow.js</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="card demo-card h-100">
+                        <div class="card-body">
+                            <div class="demo-icon mb-3">
+                                <i class="fas fa-cube fa-2x text-primary"></i>
+                            </div>
+                            <h5 class="card-title">Tensor Operations</h5>
+                            <p class="card-text">Learn fundamental tensor manipulations including shape transformations, data type conversions, and mathematical operations.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success"></i> Shape transformations</li>
+                                <li><i class="fas fa-check text-success"></i> Data type conversions</li>
+                                <li><i class="fas fa-check text-success"></i> Mathematical operations</li>
+                                <li><i class="fas fa-check text-success"></i> Memory management</li>
+                            </ul>
+                            <a href="pages/tensor-operations.html" class="btn btn-primary">
+                                <i class="fas fa-play"></i> Start Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="card demo-card h-100">
+                        <div class="card-body">
+                            <div class="demo-icon mb-3">
+                                <i class="fas fa-network-wired fa-2x text-success"></i>
+                            </div>
+                            <h5 class="card-title">Neural Network Builder</h5>
+                            <p class="card-text">Build and train neural networks with visual network construction and real-time training visualization.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success"></i> Visual network construction</li>
+                                <li><i class="fas fa-check text-success"></i> Layer configuration</li>
+                                <li><i class="fas fa-check text-success"></i> Training visualization</li>
+                                <li><i class="fas fa-check text-success"></i> Model export/import</li>
+                            </ul>
+                            <a href="pages/neural-network.html" class="btn btn-success">
+                                <i class="fas fa-play"></i> Start Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="card demo-card h-100">
+                        <div class="card-body">
+                            <div class="demo-icon mb-3">
+                                <i class="fas fa-eye fa-2x text-info"></i>
+                            </div>
+                            <h5 class="card-title">Image Recognition</h5>
+                            <p class="card-text">Experiment with pre-trained models for real-time image classification and confidence scoring.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success"></i> Pre-trained models</li>
+                                <li><i class="fas fa-check text-success"></i> Real-time classification</li>
+                                <li><i class="fas fa-check text-success"></i> Confidence scoring</li>
+                                <li><i class="fas fa-check text-success"></i> Batch processing</li>
+                            </ul>
+                            <a href="pages/image-recognition.html" class="btn btn-info">
+                                <i class="fas fa-play"></i> Start Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12">
+                    <h2 class="display-5 fw-bold mb-4">Built with Modern Technologies</h2>
+                    <p class="lead text-muted mb-5">Powered by cutting-edge tools and frameworks</p>
+                </div>
+            </div>
+            
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-2 col-4 text-center">
+                    <div class="tech-item">
+                        <i class="fab fa-js-square fa-3x text-warning"></i>
+                        <p class="mt-2">JavaScript</p>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 text-center">
+                    <div class="tech-item">
+                        <i class="fas fa-brain fa-3x text-primary"></i>
+                        <p class="mt-2">TensorFlow.js</p>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 text-center">
+                    <div class="tech-item">
+                        <i class="fab fa-bootstrap fa-3x text-primary"></i>
+                        <p class="mt-2">Bootstrap 5</p>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 text-center">
+                    <div class="tech-item">
+                        <i class="fas fa-chart-bar fa-3x text-success"></i>
+                        <p class="mt-2">Chart.js</p>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 text-center">
+                    <div class="tech-item">
+                        <i class="fab fa-docker fa-3x text-info"></i>
+                        <p class="mt-2">Docker</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-brain"></i> TensorFlow.js Learning Platform</h5>
+                    <p class="text-muted">Empowering AI education through interactive learning experiences.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted">&copy; 2024 TensorFlow.js Learning Platform. Built with ❤️ for AI education.</p>
+                    <div class="social-links">
+                        <a href="#" class="text-muted me-3"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-muted me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-muted"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.card, .step-card, .demo-card, .tech-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,50 @@
+{
+  "name": "tensorflowjs-learning-platform",
+  "version": "2.0.0",
+  "description": "A comprehensive web-based platform for learning and experimenting with TensorFlow.js",
+  "main": "index.html",
+  "scripts": {
+    "start": "http-server -p 8080 -c-1",
+    "dev": "http-server -p 8080 -c-1 --cors",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"Build completed\"",
+    "lint": "eslint js/**/*.js",
+    "format": "prettier --write \"**/*.{js,html,css,md}\""
+  },
+  "keywords": [
+    "tensorflow",
+    "tensorflowjs",
+    "machine-learning",
+    "ai",
+    "javascript",
+    "education",
+    "demo",
+    "interactive"
+  ],
+  "author": "TensorFlow.js Learning Platform Team",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "eslint": "^8.0.0",
+    "prettier": "^2.8.0"
+  },
+  "dependencies": {
+    "@tensorflow/tfjs": "^4.10.0",
+    "@tensorflow/tfjs-vis": "^1.5.1",
+    "bootstrap": "^5.3.0",
+    "chart.js": "^4.3.0",
+    "jquery": "^3.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/tensorflowjs-learning-platform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/tensorflowjs-learning-platform/issues"
+  },
+  "homepage": "https://github.com/your-username/tensorflowjs-learning-platform#readme",
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+} 

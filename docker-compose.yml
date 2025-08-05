@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  tensorflowjs-platform:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./pages:/app/pages
+      - ./js:/app/js
+      - ./css:/app/css
+      - ./assets:/app/assets
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Alternative service using nginx for production
+  tensorflowjs-nginx:
+    image: nginx:alpine
+    ports:
+      - "8081:80"
+    volumes:
+      - .:/usr/share/nginx/html
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    restart: unless-stopped
+    profiles:
+      - production 

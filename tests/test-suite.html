@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Suite - TensorFlow.js Learning Platform</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../css/style.css" rel="stylesheet">
+    
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0/dist/tf.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <i class="fas fa-brain"></i> TensorFlow.js Learning Platform
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="../index.html">Home</a>
+                <a class="nav-link active" href="test-suite.html">Test Suite</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-vial"></i> Test Suite</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <button class="btn btn-primary" onclick="runAllTests()">
+                                    <i class="fas fa-play"></i> Run All Tests
+                                </button>
+                                <button class="btn btn-success" onclick="runTensorTests()">
+                                    <i class="fas fa-cube"></i> Tensor Tests
+                                </button>
+                                <button class="btn btn-info" onclick="runUtilityTests()">
+                                    <i class="fas fa-tools"></i> Utility Tests
+                                </button>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <span class="badge bg-success" id="passed-tests">0</span>
+                                <span class="badge bg-danger" id="failed-tests">0</span>
+                                <span class="badge bg-info" id="total-tests">0</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div id="test-results"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center text-muted py-3 mt-5">
+        <div class="container">
+            <p>&copy; 2024 TensorFlow.js Learning Platform. Built with ❤️ for AI education.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Test Framework -->
+    <script>
+        class TestSuite {
+            constructor() {
+                this.tests = [];
+                this.passed = 0;
+                this.failed = 0;
+                this.results = [];
+            }
+
+            test(name, testFunction) {
+                this.tests.push({ name, testFunction });
+            }
+
+            assert(condition, message) {
+                if (!condition) {
+                    throw new Error(message || 'Assertion failed');
+                }
+            }
+
+            assertEquals(expected, actual, message) {
+                if (expected !== actual) {
+                    throw new Error(message || `Expected ${expected}, but got ${actual}`);
+                }
+            }
+
+            assertTrue(condition, message) {
+                this.assert(condition, message || 'Expected true');
+            }
+
+            assertFalse(condition, message) {
+                this.assert(!condition, message || 'Expected false');
+            }
+
+            async runTests() {
+                this.passed = 0;
+                this.failed = 0;
+                this.results = [];
+
+                const resultsDiv = document.getElementById('test-results');
+                resultsDiv.innerHTML = '<div class="alert alert-info">Running tests...</div>';
+
+                for (const test of this.tests) {
+                    try {
+                        await test.testFunction();
+                        this.passed++;
+                        this.results.push({
+                            name: test.name,
+                            status: 'PASSED',
+                            message: 'Test passed successfully'
+                        });
+                    } catch (error) {
+                        this.failed++;
+                        this.results.push({
+                            name: test.name,
+                            status: 'FAILED',
+                            message: error.message
+                        });
+                    }
+                }
+
+                this.updateDisplay();
+            }
+
+            updateDisplay() {
+                // Update counters
+                document.getElementById('passed-tests').textContent = this.passed;
+                document.getElementById('failed-tests').textContent = this.failed;
+                document.getElementById('total-tests').textContent = this.tests.length;
+
+                // Update results display
+                const resultsDiv = document.getElementById('test-results');
+                let html = '';
+
+                this.results.forEach(result => {
+                    const statusClass = result.status === 'PASSED' ? 'success' : 'danger';
+                    const icon = result.status === 'PASSED' ? 'check' : 'times';
+                    
+                    html += `
+                        <div class="alert alert-${statusClass}">
+                            <i class="fas fa-${icon}"></i>
+                            <strong>${result.name}</strong>: ${result.message}
+                        </div>
+                    `;
+                });
+
+                if (this.failed === 0) {
+                    html = `<div class="alert alert-success">
+                        <i class="fas fa-check-circle"></i>
+                        <strong>All tests passed!</strong> (${this.passed}/${this.tests.length})
+                    </div>` + html;
+                } else {
+                    html = `<div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>${this.failed} test(s) failed</strong> (${this.passed} passed, ${this.failed} failed)
+                    </div>` + html;
+                }
+
+                resultsDiv.innerHTML = html;
+            }
+        }
+
+        // Global test suite instance
+        const testSuite = new TestSuite();
+
+        // TensorFlow.js Tests
+        testSuite.test('TensorFlow.js is loaded', () => {
+            testSuite.assert(typeof tf !== 'undefined', 'TensorFlow.js is not loaded');
+            testSuite.assert(typeof tf.tensor === 'function', 'tf.tensor function is not available');
+        });
+
+        testSuite.test('Basic tensor creation', () => {
+            const tensor = tf.tensor([1, 2, 3, 4]);
+            testSuite.assertEquals(4, tensor.size, 'Tensor size should be 4');
+            testSuite.assertEquals(1, tensor.rank, 'Tensor rank should be 1');
+            testSuite.assertEquals('float32', tensor.dtype, 'Tensor dtype should be float32');
+            tensor.dispose();
+        });
+
+        testSuite.test('Tensor shape operations', () => {
+            const tensor = tf.tensor([1, 2, 3, 4], [2, 2]);
+            testSuite.assertEquals(2, tensor.rank, '2D tensor rank should be 2');
+            testSuite.assertEquals(4, tensor.size, '2D tensor size should be 4');
+            
+            const flattened = tensor.flatten();
+            testSuite.assertEquals(1, flattened.rank, 'Flattened tensor rank should be 1');
+            testSuite.assertEquals(4, flattened.size, 'Flattened tensor size should be 4');
+            
+            tensor.dispose();
+            flattened.dispose();
+        });
+
+        testSuite.test('Tensor mathematical operations', () => {
+            const tensor = tf.tensor([1, 2, 3, 4]);
+            const squared = tensor.square();
+            const mean = tensor.mean();
+            
+            testSuite.assertEquals(2.5, mean.dataSync()[0], 'Mean should be 2.5');
+            testSuite.assertEquals(16, squared.dataSync()[3], 'Last element squared should be 16');
+            
+            tensor.dispose();
+            squared.dispose();
+            mean.dispose();
+        });
+
+        testSuite.test('Memory management', () => {
+            const initialMemory = tf.memory().numBytes;
+            
+            const tensors = [];
+            for (let i = 0; i < 5; i++) {
+                tensors.push(tf.randomNormal([10, 10]));
+            }
+            
+            const afterCreation = tf.memory().numBytes;
+            testSuite.assertTrue(afterCreation > initialMemory, 'Memory should increase after tensor creation');
+            
+            tensors.forEach(tensor => tensor.dispose());
+            
+            const afterDispose = tf.memory().numBytes;
+            testSuite.assertTrue(afterDispose <= afterCreation, 'Memory should decrease after disposal');
+        });
+
+        // Utility Tests
+        testSuite.test('TensorUtils class exists', () => {
+            testSuite.assert(typeof TensorUtils !== 'undefined', 'TensorUtils class is not defined');
+        });
+
+        testSuite.test('TensorUtils.createTensorFromInput', () => {
+            if (typeof TensorUtils !== 'undefined') {
+                const tensor = TensorUtils.createTensorFromInput('[1, 2, 3, 4]');
+                testSuite.assertEquals(4, tensor.size, 'Created tensor should have size 4');
+                tensor.dispose();
+            }
+        });
+
+        testSuite.test('Performance monitoring', () => {
+            if (typeof performanceMonitor !== 'undefined') {
+                testSuite.assert(typeof performanceMonitor.recordMetric === 'function', 'recordMetric should be a function');
+                testSuite.assert(typeof performanceMonitor.getSummary === 'function', 'getSummary should be a function');
+            }
+        });
+
+        testSuite.test('Export utilities', () => {
+            if (typeof ExportUtils !== 'undefined') {
+                testSuite.assert(typeof ExportUtils.exportJSON === 'function', 'exportJSON should be a function');
+                testSuite.assert(typeof ExportUtils.exportCSV === 'function', 'exportCSV should be a function');
+            }
+        });
+
+        // Browser compatibility tests
+        testSuite.test('Modern browser features', () => {
+            testSuite.assert(typeof Promise !== 'undefined', 'Promises should be supported');
+            testSuite.assert(typeof fetch !== 'undefined', 'Fetch API should be supported');
+            testSuite.assert(typeof localStorage !== 'undefined', 'LocalStorage should be supported');
+        });
+
+        testSuite.test('DOM manipulation', () => {
+            const testDiv = document.createElement('div');
+            testDiv.id = 'test-div';
+            document.body.appendChild(testDiv);
+            
+            testSuite.assert(document.getElementById('test-div') !== null, 'DOM element should be created');
+            
+            document.body.removeChild(testDiv);
+        });
+
+        // Performance tests
+        testSuite.test('TensorFlow.js performance', async () => {
+            const startTime = performance.now();
+            
+            const tensor = tf.randomNormal([100, 100]);
+            const result = tensor.square().mean();
+            const value = result.dataSync()[0];
+            
+            const endTime = performance.now();
+            const executionTime = endTime - startTime;
+            
+            testSuite.assertTrue(executionTime < 1000, 'Tensor operation should complete within 1 second');
+            testSuite.assertTrue(typeof value === 'number', 'Result should be a number');
+            testSuite.assertTrue(!isNaN(value), 'Result should not be NaN');
+            
+            tensor.dispose();
+            result.dispose();
+        });
+
+        // Global test functions
+        function runAllTests() {
+            testSuite.runTests();
+        }
+
+        function runTensorTests() {
+            const tensorTests = testSuite.tests.filter(test => 
+                test.name.includes('Tensor') || test.name.includes('tensor')
+            );
+            testSuite.tests = tensorTests;
+            testSuite.runTests();
+        }
+
+        function runUtilityTests() {
+            const utilityTests = testSuite.tests.filter(test => 
+                test.name.includes('Utility') || test.name.includes('Utils') || 
+                test.name.includes('Export') || test.name.includes('Performance')
+            );
+            testSuite.tests = utilityTests;
+            testSuite.runTests();
+        }
+
+        // Run tests when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait for TensorFlow.js to load
+            setTimeout(() => {
+                runAllTests();
+            }, 1000);
+        });
+    </script>
+</body>
+</html> 
